@@ -6,6 +6,7 @@ import type {ExtensionAuto, ExtensionNodeSpec} from '../../../../core';
 import {nodeTypeFactory} from '../../../../utils/schema';
 
 import {TabsNode} from './const';
+import {tabsPostPlugin} from './md-plugin';
 import {parserTokens} from './parser';
 import {getSchemaSpecs} from './schema';
 import {serializerTokens} from './serializer';
@@ -31,7 +32,7 @@ export const YfmTabsSpecs: ExtensionAuto<YfmTabsSpecsOptions> = (builder, opts) 
     const schemaSpecs = getSchemaSpecs(opts);
 
     builder
-        .configureMd((md) => md.use(yfmPlugin, {log}))
+        .configureMd((md) => md.use(yfmPlugin, {log}).use(tabsPostPlugin))
         .addNode(TabsNode.Tab, () => ({
             spec: schemaSpecs[TabsNode.Tab],
             toMd: serializerTokens[TabsNode.Tab],
@@ -67,5 +68,40 @@ export const YfmTabsSpecs: ExtensionAuto<YfmTabsSpecsOptions> = (builder, opts) 
                 tokenName: 'tabs',
             },
             view: opts.tabsView,
+        }));
+
+    // TODO: add switch tabs runtime for vertical tabs
+    builder
+        .addNode(TabsNode.VTabs, () => ({
+            spec: schemaSpecs[TabsNode.VTabs],
+            toMd: serializerTokens[TabsNode.VTabs],
+            fromMd: {
+                tokenSpec: parserTokens[TabsNode.VTabs],
+                tokenName: 'v-tabs',
+            },
+        }))
+        .addNode(TabsNode.VTab, () => ({
+            spec: schemaSpecs[TabsNode.VTab],
+            toMd: serializerTokens[TabsNode.VTab],
+            fromMd: {
+                tokenSpec: parserTokens[TabsNode.VTab],
+                tokenName: 'v-tab',
+            },
+        }))
+        .addNode(TabsNode.VTabInput, () => ({
+            spec: schemaSpecs[TabsNode.VTabInput],
+            toMd: serializerTokens[TabsNode.VTabInput],
+            fromMd: {
+                tokenSpec: parserTokens[TabsNode.VTabInput],
+                tokenName: 'v-tab-input',
+            },
+        }))
+        .addNode(TabsNode.VTabLabel, () => ({
+            spec: schemaSpecs[TabsNode.VTabLabel],
+            toMd: serializerTokens[TabsNode.VTabLabel],
+            fromMd: {
+                tokenSpec: parserTokens[TabsNode.VTabLabel],
+                tokenName: 'v-tab-label',
+            },
         }));
 };

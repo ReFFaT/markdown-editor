@@ -94,4 +94,71 @@ export const getSchemaSpecs: (
         allowSelection: false,
         complex: 'inner',
     },
+
+    [TabsNode.VTabs]: {
+        attrs: {
+            [TabsAttrs.class]: {default: 'yfm-tabs yfm-tabs-vertical'},
+            [TabsAttrs.dataDiplodocGroup]: {default: 'unknown'},
+        },
+        content: `(${TabsNode.VTab} ${TabsNode.TabPanel})+`,
+        group: 'block',
+        toDOM(node) {
+            return ['div', node.attrs, 0];
+        },
+        complex: 'root',
+    },
+    [TabsNode.VTab]: {
+        attrs: {
+            [TabAttrs.id]: {default: null},
+            [TabAttrs.class]: {default: 'yfm-tab yfm-vertical-tab'},
+            [TabAttrs.role]: {default: 'unknown'},
+            [TabAttrs.ariaControls]: {default: 'unknown'},
+            [TabAttrs.ariaSelected]: {default: 'unknown'},
+            [TabAttrs.tabindex]: {default: 'unknown'},
+            [TabAttrs.dataDiplodocKey]: {default: 'unknown'},
+            [TabAttrs.dataDiplodocid]: {default: 'unknown'},
+            [TabAttrs.dataDiplodocIsActive]: {default: 'unknown'},
+        },
+        content: `${TabsNode.VTabInput} ${TabsNode.VTabLabel}`,
+        group: 'block',
+        toDOM(node) {
+            return ['div', node.attrs, 0];
+        },
+        selectable: false,
+        allowSelection: false,
+        complex: 'inner',
+    },
+    [TabsNode.VTabInput]: {
+        attrs: {
+            [TabAttrs.class]: {default: 'radio'},
+            type: {default: 'radio'},
+            checked: {default: null},
+        },
+        group: 'block',
+        toDOM(node) {
+            return ['input', node.attrs];
+        },
+        selectable: false,
+        allowSelection: false,
+        complex: 'leaf',
+    },
+    [TabsNode.VTabLabel]: {
+        attrs: {},
+        marks: '',
+        content: 'text*',
+        group: 'block',
+        toDOM(node) {
+            return ['label', node.attrs, 0];
+        },
+        placeholder: {
+            content:
+                placeholder?.[TabsNode.Tab] ??
+                opts?.tabPlaceholder ??
+                DEFAULT_PLACEHOLDERS.TabTitle,
+            alwaysVisible: true,
+        },
+        selectable: false,
+        allowSelection: false,
+        complex: 'leaf',
+    },
 });

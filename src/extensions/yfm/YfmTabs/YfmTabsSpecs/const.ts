@@ -3,6 +3,11 @@ export enum TabsNode {
     TabsList = 'yfm_tabs_list',
     TabPanel = 'yfm_tab_panel',
     Tabs = 'yfm_tabs',
+
+    VTabs = 'yfm_v_tabs',
+    VTab = 'yfm_v_tab',
+    VTabInput = 'yfm_v_tab_input',
+    VTabLabel = 'yfm_v_tab_label',
 }
 
 export enum TabsAttrs {

@@ -40,4 +40,10 @@ export const serializerTokens: Record<TabsNode, SerializerNodeToken> = {
     [TabsNode.TabsList]: (state, node) => {
         state.renderList(node, '  ', () => (node.attrs.bullet || '-') + ' ');
     },
+
+    // TODO: implement serializetion for vertical tabs
+    [TabsNode.VTabs]: () => {},
+    [TabsNode.VTab]: () => {},
+    [TabsNode.VTabInput]: () => {},
+    [TabsNode.VTabLabel]: () => {},
 };
